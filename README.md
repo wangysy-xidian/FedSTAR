@@ -33,31 +33,7 @@ clients *and* temporal drift within each client. The design philosophy is
 session, and federation levels so the model remains robust regardless of whether the
 shift originates along the client axis or the time axis.
 
-```
-                    Server (Dual-Track Aggregation)
-                    ┌─────────────────────────────────┐
-                    │  Model Params → FedAvg           │
-                    │  Prototypes   → Temporal Smooth  │
-                    └──────────────┬──────────────────┘
-                                   │ broadcast θ + P_c
-            ┌──────────────────────┼──────────────────────┐
-            ▼                      ▼                      ▼
-       Client 1               Client 2    ...        Client K
-   ┌─────────────────────────────────────────────────────────┐
-   │  Local Pipeline (per client):                           │
-   │                                                         │
-   │  Raw Pkts → Gaussian Soft-Quant → Multi-Scale 1D-CNN   │
-   │                                  + Dual-Source FiLM     │
-   │                                    ↓                    │
-   │                              Node Embeddings            │
-   │                                    ↓                    │
-   │  Session Graph → Edge Encoder → Relation-Aware GAT      │
-   │                                    ↓                    │
-   │                           GlobalAttention Pooling       │
-   │                                    ↓                    │
-   │                              MLP Classifier             │
-   └─────────────────────────────────────────────────────────┘
-```
+![FedSTAR Framework](framework.png)
 
 | Component | Technology | Why |
 |---|---|---|
